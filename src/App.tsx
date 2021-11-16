@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  Fragment,
   KeyboardEvent,
   useCallback,
   useMemo,
@@ -20,6 +21,8 @@ const INITIAL_SPREADSHEET: Spreadsheet = [
   ["=A1", "=B1+A2*A3", "5"],
   ["=B2*20", "10", "=C2*10"],
 ];
+
+const width = 164;
 
 function Cell({
   spreadsheet,
@@ -78,13 +81,14 @@ function Cell({
         onBlur={change}
         onKeyPress={keyPress}
         autoFocus
+        style={{ width }}
       />
     );
   }
 
   return (
-    <button onClick={() => setActive(true)} style={{ width: 120 }}>
-      {calculatedContent} <small>({rawContent})</small>
+    <button onClick={() => setActive(true)} style={{ width }}>
+      {calculatedContent}
     </button>
   );
 }
@@ -105,6 +109,20 @@ function App() {
 
   return (
     <div className="App">
+      <div
+        style={{
+          marginLeft: 170,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+        }}
+      >
+        <div style={{ width }}>A</div>
+        <div style={{ width }}>B</div>
+        <div style={{ width }}>C</div>
+      </div>
+
       {spreadsheet.map((rowValues, column) => (
         <div
           key={column}
@@ -115,6 +133,8 @@ function App() {
             gap: 8,
           }}
         >
+          <div>{column + 1}</div>
+
           {rowValues.map((_, row) => (
             <Cell
               key={`${column}-${row}`}
