@@ -1,3 +1,5 @@
+import { CellLocation } from "./types";
+
 function letterToColumn(letter: string) {
   return ["A", "B", "C"].indexOf(letter);
 }
@@ -6,7 +8,7 @@ function rowToNumber(str: string) {
   return parseInt(str, 10) - 1;
 }
 
-export function cellLocation(str: string) {
+export function cellLocation(str: string): CellLocation {
   const letter = str.charAt(0);
   const rowNumberStr = str.substring(1);
 
